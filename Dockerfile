@@ -1,4 +1,3 @@
-# syntax=docker/dockerfile:experimental
 FROM eclipse-temurin:17-jdk-alpine as build
 WORKDIR /workspace/app
 
@@ -7,7 +6,7 @@ COPY .mvn .mvn
 COPY pom.xml .
 COPY src src
 
-RUN --mount=type=cache,target=/root/.m2 ./mvnw package
+RUN ./mvnw package
 RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
 
 FROM eclipse-temurin:17-jdk-alpine
